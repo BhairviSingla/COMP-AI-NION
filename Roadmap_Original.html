@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Career Roadmap</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: black;
+      color: white;
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-gap: 20px;
+      width: 90%;
+      max-width: 900px;
+      margin: 50px auto;
+    }
+
+    .box {
+      border: 2px solid;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+    }
+
+    .science { border-color: #00aaff; color: #00aaff; }
+    .commerce { border-color: #00ff88; color: #00ff88; }
+    .arts { border-color: #ff4444; color: #ff4444; }
+    .vocational { border-color: #ffee44; color: #ffee44; }
+
+    .box h2 {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      margin: 10px 0;
+    }
+
+    a {
+      display: inline-block;
+      padding: 8px 12px;
+      color: white;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 6px;
+      transition: background 0.3s;
+    }
+
+    a:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Glow effect for hover */
+    .science a:hover { box-shadow: 0 0 10px #00aaff; }
+    .commerce a:hover { box-shadow: 0 0 10px #00ff88; }
+    .arts a:hover { box-shadow: 0 0 10px #ff4444; }
+    .vocational a:hover { box-shadow: 0 0 10px #ffee44; }
+
+    /* Images section */
+    .career-images {
+      display: none;
+      text-align: center;
+      margin: 50px auto;
+      max-width: 90%;
+    }
+
+    .career-images img {
+      display: block;
+      max-width: 80%;
+      margin: 20px auto;
+      border: 2px solid white;
+      border-radius: 10px;
+    }
+
+    .career-images .buttons {
+      margin-top: 20px;
+    }
+
+    .career-images button {
+      margin: 5px;
+      padding: 10px 15px;
+      border-radius: 5px;
+      border: none;
+      background: #00ffcc;
+      color: black;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    /* Top buttons vertically stacked */
+    .top-buttons {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 1000;
+    }
+
+    .top-buttons button {
+      padding: 10px 15px;
+      background: #ffcc00;
+      color: black;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Buttons (stacked) -->
+  <div class="top-buttons">
+    <button onclick="backToHome()">Back to Home</button>
+    <button onclick="backToDashboard()">Back to Dashboard</button>
+  </div>
+
+  <!-- Main Menu -->
+  <div class="container">
+    <div class="box science">
+      <h2>SCIENCE</h2>
+      <ul>
+        <li><a href="#" id="engineering-link">Engineering (BTech, MTech)</a></li>
+        <li><a href="#" id="medical-link">Medical (MBBS, BDS, Nursing)</a></li>
+        <li><a href="#" id="research-link">Research (Biotech, Physics, Chemistry)</a></li>
+        <li><a href="csit_roadmap.html">Computer Science and IT</a></li>
+      </ul>
+    </div>
+
+    <div class="box commerce">
+      <h2>COMMERCE</h2>
+      <ul>
+        <li><a href="bcom_roadmap.html">B.Com, M.Com</a></li>
+        <li><a href="ca_roadmap.html">CA, CS, CMA</a></li>
+        <li><a href="bba_mba_roadmap.html">Business Administration (BBA, MBA)</a></li>
+        <li><a href="finance_roadmap.html">Finance, Banking, Insurance</a></li>
+      </ul>
+    </div>
+
+    <div class="box arts">
+      <h2>ARTS</h2>
+      <ul>
+        <li><a href="ba_roadmap.html">BA in Literature, History, Political Science</a></li>
+        <li><a href="finearts_roadmap.html">Fine Arts, Music, Dance, Psychology, Sociology</a></li>
+        <li><a href="law_roadmap.html">Law (BA LLB, LLM)</a></li>
+      </ul>
+    </div>
+
+    <div class="box vocational">
+      <h2>VOCATIONAL</h2>
+      <ul>
+        <li><a href="iti_roadmap.html">ITI Courses (Electrician, Mechanic)</a></li>
+        <li><a href="polytechnic_roadmap.html">Polytechnic Diploma, Hotel Management</a></li>
+        <li><a href="animation_roadmap.html">Animation & Multimedia</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Engineering Images -->
+  <div id="engineering-images" class="career-images">
+    <h2>Engineering (BTech, MTech)</h2>
+    <img src="B.Tech.jpg" alt="BTech Roadmap">
+    <img src="M.Tech.jpg" alt="MTech Roadmap">
+    <div class="buttons">
+      <button id="back-engineering">Back to Main Menu</button>
+    </div>
+  </div>
+
+  <!-- Medical Images -->
+  <div id="medical-images" class="career-images">
+    <h2>Medical (MBBS, BDS, Nursing)</h2>
+    <img src="MBBS.jpg" alt="MBBS Roadmap">
+    <img src="BDS.jpg" alt="BDS Roadmap">
+    <img src="Nursing.jpg" alt="Nursing Roadmap">
+    <div class="buttons">
+      <button id="back-medical">Back to Main Menu</button>
+    </div>
+  </div>
+
+  <!-- Research Images -->
+  <div id="research-images" class="career-images">
+    <h2>Research (Biotech, Physics, Chemistry)</h2>
+    <img src="Biotech.jpg" alt="Biotech Roadmap">
+    <img src="Physics.jpg" alt="Physics Roadmap">
+    <img src="Chemistry.jpg" alt="Chemistry Roadmap">
+    <div class="buttons">
+      <button id="back-research">Back to Main Menu</button>
+    </div>
+  </div>
+
+  <script>
+    // Show images
+    document.getElementById("engineering-link").addEventListener("click", function(e) {
+      e.preventDefault();
+      document.querySelector(".container").style.display = "none";
+      document.getElementById("engineering-images").style.display = "block";
+    });
+
+    document.getElementById("medical-link").addEventListener("click", function(e) {
+      e.preventDefault();
+      document.querySelector(".container").style.display = "none";
+      document.getElementById("medical-images").style.display = "block";
+    });
+
+    document.getElementById("research-link").addEventListener("click", function(e) {
+      e.preventDefault();
+      document.querySelector(".container").style.display = "none";
+      document.getElementById("research-images").style.display = "block";
+    });
+
+    // Back buttons to main menu
+    document.getElementById("back-engineering").addEventListener("click", function() {
+      document.getElementById("engineering-images").style.display = "none";
+      document.querySelector(".container").style.display = "grid";
+    });
+
+    document.getElementById("back-medical").addEventListener("click", function() {
+      document.getElementById("medical-images").style.display = "none";
+      document.querySelector(".container").style.display = "grid";
+    });
+
+    document.getElementById("back-research").addEventListener("click", function() {
+      document.getElementById("research-images").style.display = "none";
+      document.querySelector(".container").style.display = "grid";
+    });
+
+    // Back to Dashboard function
+    function backToDashboard() {
+      window.location.href = "Dashboard.html"; 
+    }
+
+    // Back to Home function
+    function backToHome() {
+      window.location.href = "First_Page.html"; 
+    }
+  </script>
+
+</body>
+</html>

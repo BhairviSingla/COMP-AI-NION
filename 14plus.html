@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skill Career Guidance</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: "Orbitron", sans-serif;
+      background: #0a0f1c;
+      color: white;
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 40px;
+      border: 2px solid #0ff;
+      border-radius: 15px;
+      margin: 15px;
+      background: rgba(0, 0, 0, 0.6);
+    }
+
+    .navbar .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .navbar .menu a {
+      margin: 0 15px;
+      color: #bbb;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .navbar .menu a:hover,
+    .navbar .menu a.active {
+      color: #0ff;
+      border-bottom: 2px solid #0ff;
+    }
+
+    /* Main section */
+    .main {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 80vh;
+      text-align: center;
+    }
+
+    .skill-level {
+      font-size: 80px;
+      font-weight: bold;
+      color: #0ff;
+    }
+
+    .skill-text {
+      font-size: 20px;
+      margin-bottom: 30px;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 40px;
+    }
+
+    .btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 20px 40px;
+      font-size: 20px;
+      font-weight: bold;
+      border-radius: 15px;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: 0.3s;
+    }
+
+    .quiz {
+      border-color: #0f0;
+      color: #0f0;
+    }
+
+    .quiz:hover {
+      background: rgba(0, 255, 0, 0.1);
+    }
+
+    .roadmap {
+      border-color: #ff9800;
+      color: #ff9800;
+    }
+
+    .roadmap:hover {
+      background: rgba(255, 152, 0, 0.1);
+    }
+
+    /* XP Display */
+    .xp {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 8px 12px;
+      border-radius: 10px;
+    }
+
+    .xp i {
+      color: #ff00ff;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <div class="navbar">
+    <div class="logo">
+      <i class="fa-solid fa-user"></i>
+      Skill Career Guidance
+    </div>
+    <div class="menu">
+      <a href="#" class="active">log in</a>
+      <a href="#">info</a>
+      <a href="#">dashboard</a>
+      <a href="#">specialization</a>
+    </div>
+  </div>
+
+  <!-- Main Section -->
+  <div class="main">
+    <div class="skill-level">14+</div>
+    <div class="skill-text">YOUR SKILL LEVEL</div>
+    <div class="buttons">
+      <div class="btn quiz" onclick="takeQuiz()">
+        <i class="fa-solid fa-gamepad"></i> TAKE QUIZ
+      </div>
+      <div class="btn roadmap" onclick="seeRoadmap()">
+        <i class="fa-solid fa-compass"></i> SEE ROADMAP
+      </div>
+    </div>
+  </div>
+
+  <!-- XP Display -->
+  <div class="xp">
+    <i class="fa-solid fa-user-circle"></i> 
+  </div>
+
+  <script>
+
+
+function takeQuiz() {
+  // ✅ Redirect directly to the new quiz page (e.g., 14_Next.html)
+  window.top.location.href = "14_Next.html";
+}
+
+
+    function seeRoadmap() {
+       window.location.href = "Roadmap_Original.html";
+    }
+
+  </script>
+</body>
+</html>

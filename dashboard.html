@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Futuristic Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background-color: #0a0f1f;
+      color: #cfd8dc;
+      font-family: 'Orbitron', sans-serif;
+    }
+    .glow {
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.6);
+    }
+    .neon-text {
+      text-shadow: 0 0 5px #00faff, 0 0 10px #00faff;
+    }
+    #compass{
+        font-family: "Press Start 2P", system-ui;
+        font-weight: 400;
+        font-style: normal;
+        font-size: 30px;
+    }
+
+    #code{
+        font-family: "Press Start 2P", system-ui;
+        font-weight: 400;
+        font-style: normal;
+    }
+    .explore-btn{
+        font-weight: 900;
+        cursor:pointer;
+    }
+  </style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body class="min-h-screen p-6">
+  
+  <!-- Navigation -->
+  <nav class="flex justify-around border-b border-cyan-500 pb-3">
+    <button class="text-cyan-400 neon-text">QUESTS</button>
+    <button class="text-cyan-400 neon-text border-b-2 border-cyan-400">PROGRESS</button>
+    <button class="text-cyan-400 neon-text">SKILLS</button>
+    <button class="text-cyan-400 neon-text">COMMUNITY</button>
+    <button class="text-cyan-400 neon-text">PROFILE</button>
+  </nav>
+
+  <!-- Main Layout -->
+  <div class="grid grid-cols-12 gap-6 mt-6">
+    
+    <!-- Left Panel (Circle Progress + Roadmap) -->
+    <div class="col-span-8 bg-[#101524] rounded-2xl p-6 glow">
+      <!-- Circle Progress -->
+      <div class="flex flex-col items-center">
+        <div class="w-40 h-40 rounded-full border-4 border-cyan-400 flex items-center justify-center relative">
+          <div class="text-center">
+            <div class="text-4xl">🤖</div>
+            <p class="mt-2 text-sm">60%</p>
+            <div class="w-28 bg-gray-800 h-2 rounded mt-2">
+              <div class="bg-cyan-400 h-2 rounded" style="width:60%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Roadmap -->
+      <div class="mt-8">
+        <h2 class="text-cyan-300 font-bold text-lg mb-4" id="compass">COMPASS</h2>
+        <div class="grid grid-cols-3 gap-6 text-center">
+          <div class="p-4 border border-cyan-400 rounded-lg explore-btn">EXPLORE</div>
+          <div class="p-4 border border-cyan-400 rounded-lg explore-btn" id="chatbot-btn">CHATBOT</div>
+          <div class="p-4 border border-cyan-400 rounded-lg explore-btn" id="roadmap-btn">ROADMAP</div>
+          <div class="p-4 border border-cyan-400 rounded-lg explore-btn">GROW</div>
+          <div class="p-4 border border-cyan-400 rounded-lg explore-btn">LEVEL UP</div>
+          <div class="p-4 border border-cyan-400 rounded-lg explore-btn">ACHIEVE</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Panel (Levels + XP + Leaderboard) -->
+    <div class="col-span-4 space-y-6">
+      <!-- XP Progress -->
+      <div class="bg-[#101524] rounded-2xl p-6 glow">
+        <h3 class="text-cyan-300 font-bold mb-3" id="code">Levels</h3>
+        <div class="space-y-3">
+          <div class="p-3 border border-cyan-400 rounded-lg flex justify-between">
+            <span>+500 XP</span><span>Level Up!</span>
+          </div>
+          <div class="p-3 border border-cyan-400 rounded-lg flex justify-between">
+            <span>+500 XP</span><span>Level Up!</span>
+          </div>
+          <div class="p-3 border border-cyan-400 rounded-lg flex justify-between">
+            <span>+500 XP</span><span>Progress</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Leaderboard -->
+      <div class="bg-[#101524] rounded-2xl p-6 glow">
+        <h3 class="text-cyan-300 font-bold mb-3" id="code">Self Scale</h3>
+        <ul class="space-y-2">
+          <li>📊 Credits - 40%</li>
+          <li>📊 Rising Skills - 89%</li>
+          <li>📊 Improvement - 50%</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // CHATBOT button click - open Chatbot.html
+    document.getElementById("chatbot-btn").addEventListener("click", function(){
+      window.open("Chatbot.html", "_blank");
+    });
+
+    // ROADMAP button click - open Roadmap_Original.html
+    document.getElementById("roadmap-btn").addEventListener("click", function(){
+      window.open("Roadmap_Original.html", "_blank");
+    });
+  </script>
+
+</body>
+</html>

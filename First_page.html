@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skill Career Guidance</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family:sans-serif;
+      background: #050b18;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      gap: 40px;
+    }
+
+    /* Top futuristic box */
+    .top-box {
+      position: relative;
+      padding: 30px 50px;
+      max-width: 700px;
+      width: 90%;
+      text-align: center;
+      background: #0b0f1c;
+      border-radius: 12px;
+      box-shadow: inset 0 0 25px rgba(0, 242, 255, 0.2);
+    }
+
+    /* Futuristic corner highlights */
+    .top-box::before,
+    .top-box::after,
+    .top-box span::before,
+    .top-box span::after {
+      content: "";
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      border: 3px solid #00f2ff;
+    }
+
+    .top-box::before { top: 0; left: 0; border-right: none; border-bottom: none; }
+    .top-box::after { top: 0; right: 0; border-left: none; border-bottom: none; }
+    .top-box span::before { bottom: 0; left: 0; border-right: none; border-top: none; }
+    .top-box span::after { bottom: 0; right: 0; border-left: none; border-top: none; }
+
+    .icon {
+      font-size: 50px;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      margin: 0 0 20px;
+    }
+
+    .menu {
+      display: flex;
+      justify-content: center;
+      gap: 35px;
+    }
+
+    .menu a {
+      text-decoration: none;
+      color: #fff;
+      position: relative;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .menu a::after {
+      content: "";
+      position: absolute;
+      width: 0%;
+      height: 2px;
+      left: 0;
+      bottom: -6px;
+      background: #00f2ff;
+      transition: 0.3s;
+    }
+
+    .menu a:hover::after,
+    .menu a.active::after {
+      width: 100%;
+    }
+
+    /* Age buttons container */
+    .age-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 35px;
+      flex-wrap: wrap;
+    }
+
+    /* Perfect octagon buttons */
+    .age-btn {
+      position: relative;
+      width: 100px;
+      height: 100px;
+      background: transparent;
+      color: #00f2ff;
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      clip-path: polygon(
+        30% 0%, 70% 0%,
+        100% 30%, 100% 70%,
+        70% 100%, 30% 100%,
+        0% 70%, 0% 30%
+      );
+      border: 3px solid #00f2ff;
+      box-shadow: 0 0 15px #00f2ff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: 0.3s;
+    }
+
+    .age-btn:hover {
+      background: #00f2ff;
+      color: #000;
+      box-shadow: 0 0 25px #00f2ff;
+    }
+  </style>
+</head>
+<body>
+  <!-- Top futuristic box -->
+  <div class="top-box">
+    <div class="icon">👤</div>
+    <h2>Skill Career Guidance</h2>
+    <div class="menu">
+      <a href="#" id="login" class="active">LOGIN</a>
+      <a href="#" id="info">INFO</a>
+      <a href="#" id="dashboard">DASHBOARD</a>
+      <a href="#" id="specialization">SPECIALIZATION</a>
+    </div>
+    <span></span>
+  </div>
+
+  <!-- Octagon Age Buttons -->
+  <div class="age-buttons">
+    <button class="age-btn" id="age14">14+</button>
+    <button class="age-btn" id="age18">18+</button>
+    <button class="age-btn" id="age22">22+</button>
+    <button class="age-btn" id="age28">28+</button>
+  </div>
+
+ <script>
+  // Menu button events (these can be customized later)
+  document.getElementById("login").onclick = () => alert("Redirecting to Log In page...");
+  document.getElementById("info").onclick = () => alert("Redirecting to Info page...");
+  document.getElementById("dashboard").onclick = () => alert("Redirecting to Dashboard...");
+  document.getElementById("specialization").onclick = () => alert("Redirecting to Specialization page...");
+
+  // Age button redirects to respective HTML files
+  document.getElementById("age14").onclick = () => window.location.href = "14plus.html";
+  document.getElementById("age18").onclick = () => window.location.href = "18plus.html";
+  document.getElementById("age22").onclick = () => window.location.href = "22plus.html";
+  document.getElementById("age28").onclick = () => window.location.href = "28plus.html";
+</script>
+</body>
+</html>
+
+

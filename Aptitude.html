@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Career Guidance Quiz - Set1</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body{
+      margin:0;
+      font-family: "Segoe UI", sans-serif;
+      background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);
+      color:#fff;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      min-height:100vh;
+      padding:20px;
+    }
+    .container{
+      max-width:900px;
+      width:100%;
+      background:rgba(255,255,255,0.05);
+      border-radius:16px;
+      padding:24px;
+      box-shadow:0 8px 20px rgba(0,0,0,0.6);
+    }
+    h1,h2,h3{margin:0 0 10px}
+    .btn{
+      background:#6c63ff;
+      border:none;
+      color:#fff;
+      padding:12px 20px;
+      border-radius:8px;
+      cursor:pointer;
+      margin:8px 4px;
+    }
+    .btn.ghost{background:transparent;border:1px solid #6c63ff}
+    .progress{height:8px;background:#444;border-radius:6px;margin-bottom:12px;overflow:hidden}
+    .progress i{display:block;height:100%;width:0;background:#6c63ff;transition:width .4s}
+    .question{margin:12px 0;font-size:18px;font-weight:700}
+    .options{display:grid;gap:10px}
+    .option{
+      background:rgba(255,255,255,0.05);
+      padding:12px;
+      border-radius:8px;
+      cursor:pointer;
+      user-select:none;
+    }
+    .option.selected{background:#6c63ff}
+    .controls{margin-top:12px;display:flex;justify-content:space-between}
+    .result{text-align:center}
+    .stream{background:rgba(255,255,255,0.05);padding:14px;border-radius:10px;margin:8px 0;text-align:left}
+    .stream h3{margin:0 0 6px}
+    ul{margin:4px 0 0 18px}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>CRUCIBLE</h1>
+    <p>Answer 25 questions honestly. At the end, we’ll suggest the best stream (Science, Commerce, Arts, or Vocational) and show further study options including 4-year & 5-year courses.</p>
+    <button id="startBtn" class="btn">Let's Go</button>
+
+    <!-- QUIZ AREA -->
+    <div id="quizArea" style="display:none;">
+      <div class="progress"><i id="progBar"></i></div>
+      <div id="qCount"></div>
+      <div id="questionWrap"></div>
+      <div class="controls">
+        <button id="prevBtn" class="btn ghost">Previous</button>
+        <button id="nextBtn" class="btn ghost">Next</button>
+        <button id="submitBtn" class="btn" style="display:none">Submit</button>
+      </div>
+    </div>
+
+    <!-- RESULT AREA -->
+    <div id="resultArea" style="display:none;">
+      <div class="result">
+        <h2>Your recommended stream:</h2>
+        <div id="resultStream" style="font-size:22px;font-weight:700;"></div>
+        <div id="resultDesc" style="margin-top:6px;color:#ccc"></div>
+        <div id="streamOptions"></div>
+        <button id="restartBtn" class="btn ghost">Restart Quiz</button>
+        <button id="personalityBtn" class="btn ghost">Personality and Work Environment</button> 
+        <button id="dashboardBtn" class="btn neon-glow">Go to Dashboard</button>
+
+      </div>
+    </div>
+  </div>
+
+ <script>
+// ===============================
+// SET 1: 25 QUESTIONS
+// ===============================
+const QUESTIONS = [
+   { question: "I enjoy activities that involve:", options: [
+     { text: "Building and fixing things", stream: "science" },
+     { text: "Analyzing data and solving logical puzzles", stream: "science" },
+     { text: "Creating art or writing stories", stream: "arts" },
+     { text: "Helping and interacting with people", stream: "commerce" }
+   ]},
+   { question: "Which of these subjects did you find most engaging in school?", options: [
+     { text: "Mathematics", stream: "science" },
+     { text: "Physics", stream: "science" },
+     { text: "Literature", stream: "arts" },
+     { text: "Biology", stream: "science" },
+     { text: "History", stream: "arts" },
+     { text: "Computer Science", stream: "science" }
+   ]},
+   { question: "When faced with a complex problem, my first instinct is to:", options: [
+     { text: "Break it down into smaller, manageable parts", stream: "science" },
+     { text: "Brainstorm creative and unconventional solutions", stream: "arts" },
+     { text: "Consult with others to get their perspective", stream: "commerce" },
+     { text: "Look for a similar problem that has already been solved", stream: "vocational" }
+   ]},
+   { question: "Which of these skills do you believe are your strongest?", options: [
+     { text: "Public speaking", stream: "commerce" },
+     { text: "Coding/Programming", stream: "science" },
+     { text: "Financial management", stream: "commerce" },
+     { text: "Manual dexterity", stream: "vocational" },
+     { text: "Scientific research", stream: "science" },
+     { text: "Negotiation", stream: "commerce" }
+   ]},
+   { question: "I am most energized by:", options: [
+     { text: "Learning a new technical skill", stream: "science" },
+     { text: "Pitching a new idea to a group", stream: "commerce" },
+     { text: "Spending time alone to think and reflect", stream: "arts" },
+     { text: "Leading a project or a team", stream: "commerce" }
+   ]},
+   { question: "Which of these tasks would you prefer to do on a daily basis?", options: [
+     { text: "Writing reports or articles", stream: "arts" },
+     { text: "Designing graphics or layouts", stream: "arts" },
+     { text: "Conducting experiments", stream: "science" },
+     { text: "Managing schedules and appointments", stream: "commerce" },
+     { text: "Giving presentations", stream: "commerce" },
+     { text: "Handling customer inquiries", stream: "vocational" }
+   ]},
+   { question: "My natural inclination is to think in terms of:", options: [
+     { text: "Numbers and data", stream: "science" },
+     { text: "People and relationships", stream: "commerce" },
+     { text: "Systems and processes", stream: "vocational" },
+     { text: "Visuals and aesthetics", stream: "arts" }
+   ]},
+   { question: "When reading a newspaper or watching the news, which sections do you find most interesting?", options: [
+     { text: "Business & Finance", stream: "commerce" },
+     { text: "Science & Technology", stream: "science" },
+     { text: "Arts & Culture", stream: "arts" },
+     { text: "Local Community & Politics", stream: "commerce" },
+     { text: "Health & Wellness", stream: "science" },
+     { text: "Sports", stream: "vocational" }
+   ]},
+   { question: "I prefer to work on tasks that are:", options: [
+     { text: "Structured and clearly defined", stream: "science" },
+     { text: "Creative and open-ended", stream: "arts" },
+     { text: "Hands-on and practical", stream: "vocational" },
+     { text: "People-oriented and collaborative", stream: "commerce" }
+   ]},
+   { question: "In a team project, which roles do you usually gravitate towards?", options: [
+     { text: "The Planner/Organizer", stream: "commerce" },
+     { text: "The Visionary/Idea Generator", stream: "arts" },
+     { text: "The Executor/Doer", stream: "vocational" },
+     { text: "The Communicator/Mediator", stream: "commerce" },
+     { text: "The Analyst/Researcher", stream: "science" }
+   ]},
+   { question: "I feel a sense of accomplishment when I:", options: [
+     { text: "Successfully debug a piece of code", stream: "science" },
+     { text: "Create a beautiful piece of art", stream: "arts" },
+     { text: "Close a difficult sale", stream: "commerce" },
+     { text: "Solve a complex legal case", stream: "commerce" }
+   ]},
+   { question: "Which of these activities do you do in your free time?", options: [
+     { text: "Reading non-fiction books", stream: "science" },
+     { text: "Playing video games", stream: "science" },
+     { text: "Engaging in social media", stream: "commerce" },
+     { text: "Volunteering for a cause", stream: "vocational" },
+     { text: "Playing a musical instrument", stream: "arts" },
+     { text: "Gardening or woodworking", stream: "vocational" }
+   ]},
+   { question: "Which of these tasks would you be most interested in learning?", options: [
+     { text: "Learning a new programming language", stream: "science" },
+     { text: "Learning how to cook a complex dish", stream: "vocational" },
+     { text: "Learning how to manage a small business", stream: "commerce" },
+     { text: "Learning a new language", stream: "arts" },
+     { text: "Learning about a historical period", stream: "arts" },
+     { text: "Learning about how a machine works", stream: "science" }
+   ]},
+   { question: "I am good at:", options: [
+     { text: "Persuading others to see my point of view", stream: "commerce" },
+     { text: "Working with my hands to create or repair things", stream: "vocational" },
+     { text: "Analyzing detailed financial reports", stream: "commerce" },
+     { text: "Teaching complex topics to others", stream: "arts" }
+   ]},
+   { question: "Which of these work environments sounds most appealing?", options: [
+     { text: "A busy, fast-paced office", stream: "commerce" },
+     { text: "A quiet, secluded lab or studio", stream: "science" },
+     { text: "A dynamic outdoor setting", stream: "vocational" },
+     { text: "A home office with flexible hours", stream: "arts" },
+     { text: "A startup environment with evolving challenges", stream: "commerce" }
+   ]},
+   { question: "My friends would describe me as the one who is:", options: [
+     { text: "The logical problem-solver", stream: "science" },
+     { text: "The creative and imaginative one", stream: "arts" },
+     { text: "The empathetic listener", stream: "commerce" },
+     { text: "The organized planner", stream: "vocational" }
+   ]},
+   { question: "I am naturally drawn to topics related to:", options: [
+     { text: "The human mind and behavior", stream: "arts" },
+     { text: "The history of civilizations", stream: "arts" },
+     { text: "The inner workings of machines", stream: "science" },
+     { text: "Global economies and markets", stream: "commerce" }
+   ]},
+   { question: "Which of these professional fields sound interesting to you?", options: [
+     { text: "Healthcare", stream: "science" },
+     { text: "Technology", stream: "science" },
+     { text: "Education", stream: "arts" },
+     { text: "Law", stream: "commerce" },
+     { text: "Arts & Design", stream: "arts" },
+     { text: "Business & Finance", stream: "commerce" }
+   ]},
+   { question: "When working on a team, I am most comfortable in a role where I:", options: [
+     { text: "Am in charge and make the final decisions", stream: "commerce" },
+     { text: "Provide support and assistance to others", stream: "vocational" },
+     { text: "Contribute a specific, specialized skill", stream: "science" },
+     { text: "Help to mediate conflicts and build consensus", stream: "arts" }
+   ]},
+   { question: "Which of these would be most rewarding for you to achieve in a job?", options: [
+     { text: "Inventing something new", stream: "science" },
+     { text: "Helping a community or individual", stream: "vocational" },
+     { text: "Earning a high salary", stream: "commerce" },
+     { text: "Becoming an expert in a niche field", stream: "science" },
+     { text: "Traveling for work", stream: "arts" },
+     { text: "Managing a large team", stream: "commerce" }
+   ]},
+   { question: "I find it easiest to learn new things by:", options: [
+     { text: "Reading books and articles", stream: "arts" },
+     { text: "Doing a hands-on project", stream: "vocational" },
+     { text: "Watching videos and tutorials", stream: "science" },
+     { text: "Discussing with others", stream: "commerce" }
+   ]},
+   { question: "Which of these tasks do you enjoy?", options: [
+     { text: "Organizing information", stream: "commerce" },
+     { text: "Negotiating", stream: "commerce" },
+     { text: "Writing", stream: "arts" },
+     { text: "Analyzing data", stream: "science" },
+     { text: "Solving puzzles", stream: "science" },
+     { text: "Helping others", stream: "vocational" }
+   ]},
+   { question: "I am more interested in:", options: [
+     { text: "The theoretical aspects of a problem", stream: "science" },
+     { text: "The practical application of a solution", stream: "vocational" },
+     { text: "The human impact of a decision", stream: "arts" },
+     { text: "The financial implications of a project", stream: "commerce" }
+   ]},
+   { question: "Which of these skills do you want to develop further?", options: [
+     { text: "Leadership skills", stream: "commerce" },
+     { text: "Public speaking", stream: "commerce" },
+     { text: "Technical skills (e.g., software, machinery)", stream: "science" },
+     { text: "Creative skills (e.g., painting, writing)", stream: "arts" },
+     { text: "Problem-solving skills", stream: "science" },
+     { text: "Interpersonal skills", stream: "vocational" }
+   ]},
+   { question: "My ideal daily routine at work would involve:", options: [
+     { text: "Minimal interaction with others, focusing on deep work", stream: "science" },
+     { text: "Frequent meetings and collaboration with a diverse group", stream: "commerce" },
+     { text: "A mix of desk work and field work", stream: "vocational" },
+     { text: "A fast-paced environment with constantly changing challenges", stream: "arts" }
+   ]}
+];
+
+// ===============================
+// QUIZ LOGIC
+// ===============================
+let state = { current: 0, answers: new Array(QUESTIONS.length).fill(null) };
+const quizArea = document.getElementById("quizArea");
+const questionWrap = document.getElementById("questionWrap");
+const qCount = document.getElementById("qCount");
+const progBar = document.getElementById("progBar");
+const prevBtn = document.getElementById("prevBtn");
+const nextBtn = document.getElementById("nextBtn");
+const submitBtn = document.getElementById("submitBtn");
+const resultArea = document.getElementById("resultArea");
+const resultStream = document.getElementById("resultStream");
+const resultDesc = document.getElementById("resultDesc");
+const streamOptions = document.getElementById("streamOptions");
+
+document.getElementById("startBtn").onclick = () => {
+  document.getElementById("startBtn").style.display = "none";
+  quizArea.style.display = "block";
+  renderQ();
+};
+prevBtn.onclick = () => { if (state.current > 0) { state.current--; renderQ(); } };
+nextBtn.onclick = () => {
+  if (state.current === 14) { // after 15th Q
+    showPopup();
+  } else if (state.current < QUESTIONS.length - 1) {
+    state.current++;
+    renderQ();
+  }
+};
+submitBtn.onclick = () => showResult();
+document.getElementById("restartBtn").onclick = () => location.reload();
+document.getElementById("personalityBtn").onclick = () => { window.location.href = "Personality.html";
+
+ };
+ document.getElementById("dashboardBtn").onclick = () => {
+       window.location.href = "dashboard.html";
+};
+
+
+function renderQ(){
+  const i = state.current;
+  const q = QUESTIONS[i];
+  qCount.textContent = `Question ${i+1} / ${QUESTIONS.length}`;
+  progBar.style.width = `${((i+1)/QUESTIONS.length) * 100}%`;
+  let html = `<div class="question">${q.question}</div><div class="options">`;
+  q.options.forEach((opt, idx) => {
+    const sel = (state.answers[i] === idx) ? "selected" : "";
+    html += `<div class="option ${sel}" data-idx="${idx}">${opt.text}</div>`;
+  });
+  html += `</div>`;
+  questionWrap.innerHTML = html;
+
+  // toggle selection
+  questionWrap.querySelectorAll(".option").forEach(el=>{
+    el.onclick = () => {
+      const idx = Number(el.dataset.idx);
+      if (state.answers[i] === idx) {
+        state.answers[i] = null;  // clear selection
+      } else {
+        state.answers[i] = idx;
+      }
+      renderQ();
+    };
+  });
+
+  prevBtn.style.display = i === 0 ? "none" : "inline-block";
+  nextBtn.style.display = i === QUESTIONS.length-1 ? "none" : "inline-block";
+  submitBtn.style.display = i === QUESTIONS.length-1 ? "inline-block" : "none";
+}
+
+function showResult(){
+  quizArea.style.display = "none";
+  resultArea.style.display = "block";
+  let counts = { science:0, commerce:0, arts:0, vocational:0 };
+  state.answers.forEach((a, i)=>{
+    if (a !== null) counts[QUESTIONS[i].options[a].stream]++;
+  });
+  let stream = Object.keys(counts).reduce((a,b)=> counts[a]>counts[b]?a:b);
+  resultStream.textContent = stream.toUpperCase();
+  resultDesc.textContent = `Based on your responses, ${stream} suits you best.`;
+  const opts = {
+    science:["Engineering (B.Tech, M.Tech)","Medical (MBBS, BDS, Nursing)","Research (Biotech, Physics, Chemistry)","Computer Science & IT"],
+    commerce:["B.Com, M.Com","CA, CS, CMA","Business Administration (BBA, MBA)","Finance, Banking, Insurance"],
+    arts:["BA in Literature, History, Political Science","Fine Arts, Music, Dance","Psychology, Sociology","Law (BA LLB, LLM)"],
+    vocational:["ITI Courses (Electrician, Mechanic)","Polytechnic Diploma","Hotel Management","Animation & Multimedia"]
+  };
+  streamOptions.innerHTML = `<h2>Course Options</h2>` + opts[stream].map(c=>`<div class="stream"><h3>${c}</h3></div>`).join("");
+}
+
+// ===============================
+// POPUP AFTER 15 QUESTIONS
+// ===============================
+function showPopup(){
+  let popup = document.createElement("div");
+  popup.style.position="fixed";
+  popup.style.top=0;popup.style.left=0;
+  popup.style.width="100%";popup.style.height="100%";
+  popup.style.background="rgba(0,0,0,0.8)";
+  popup.style.display="flex";popup.style.justifyContent="center";popup.style.alignItems="center";
+  popup.style.zIndex=999;
+  popup.innerHTML = `<div style="background:#14141e;padding:25px;border-radius:14px;text-align:center;max-width:500px;color:#fff;border:2px solid #00f2ff;">
+    <h3>👏 Great Job!</h3>
+    <p>You’ve been doing great! Just a few more left for the quiz to end. At the end, you’ll discover your stream and the courses available for it. Keep going!</p>
+    <button id="continueBtn" class="btn">Continue</button>
+  </div>`;
+  document.body.appendChild(popup);
+  document.getElementById("continueBtn").onclick=()=>{
+    document.body.removeChild(popup);
+    state.current++;
+    renderQ();
+  };
+}
+ </script>
+</body>
+</html>
+
+
